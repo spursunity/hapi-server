@@ -49,5 +49,31 @@ const getNumber = {
   },
 };
 
+const getName = {
+  method: 'GET',
+  path: '/user/{name}',
+  handler: async (request, h) => {
+    try {
+      const { name } = request.params;
 
-module.exports = [ sendSimpleMessage, getNumber ];
+      return h.response({ name }).code(200);
+    } catch(err) {
+      console.log('error route /user: ', err.message);
+    }
+  },
+  options: {
+    validate: {
+      params: {
+        name: Joi.string().min(3).max(7).default('erik'),
+      },
+    },
+    response: {
+      status: {
+        200: Joi.object(),
+      },
+    },
+  },
+};
+
+
+module.exports = [ sendSimpleMessage, getNumber, getName ];
