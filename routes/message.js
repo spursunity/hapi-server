@@ -56,6 +56,10 @@ const getName = {
     try {
       const { name } = request.params;
 
+      if (name && name.length > 6) {
+        return h.response([]).code(404);
+      }
+
       return h.response({ name }).code(200);
     } catch(err) {
       console.log('error route /user: ', err.message);
@@ -64,7 +68,7 @@ const getName = {
   options: {
     validate: {
       params: {
-        name: Joi.string().min(3).max(7).default('erik'),
+        name: Joi.string().min(3).max(12),
       },
     },
     response: {
