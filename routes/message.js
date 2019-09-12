@@ -79,5 +79,34 @@ const getName = {
   },
 };
 
+const getCommits = {
+  method: 'POST',
+  path: '/commits',
+  handler: async (request, h) => {
+    try {
+      const { commits } = request.payload;
 
-module.exports = [ sendSimpleMessage, getNumber, getName ];
+      return h.response({ commits }).code(200);
+    } catch(err) {
+      console.log('error route /commits: ', err.message);
+    }
+  },
+  options: {
+    validate: {
+      payload: Joi.object(),
+    },
+    response: {
+      status: {
+        200: Joi.object(),
+      },
+    },
+  },
+};
+
+
+module.exports = [
+  sendSimpleMessage,
+  getNumber,
+  getName,
+  getCommits,
+];
