@@ -1,15 +1,12 @@
+/* eslint-disable no-console */
 const Joi = require('joi');
 
 
 const sendSimpleMessage = {
   method: 'GET',
   path: '/sms',
-  handler: async (request, h) => {
-    try {
-      return { message: 'I am Hapi' };
-    } catch(err) {
-      console.log('error route /sms: ', err.message);
-    }
+  handler: () => {
+    return { message: 'I am Hapi' };
   },
   options: {
     response: {
@@ -31,7 +28,7 @@ const getNumber = {
       console.log(typeof number);
 
       return h.response({ number, type }).code(200);
-    } catch(err) {
+    } catch (err) {
       console.log('error route /num: ', err.message);
     }
   },
@@ -61,7 +58,7 @@ const getName = {
       }
 
       return h.response({ name }).code(200);
-    } catch(err) {
+    } catch (err) {
       console.log('error route /user: ', err.message);
     }
   },
@@ -87,7 +84,7 @@ const getCommits = {
       const { commits } = request.payload;
 
       return h.response({ commits }).code(200);
-    } catch(err) {
+    } catch (err) {
       console.log('error route /commits: ', err.message);
     }
   },

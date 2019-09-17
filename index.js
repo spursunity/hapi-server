@@ -12,6 +12,14 @@ const init = async () => {
   await server.start();
   server.register(inert);
   server.route(routes);
+  server.state('auth', {
+    ttl: null,
+    isSecure: false,
+    isHttpOnly: true,
+    encoding: 'base64json',
+    clearInvalid: true,
+    strictHeader: true,
+  });
 
   console.log('Server running on %s', server.info.uri); // eslint-disable-line no-console
 };
