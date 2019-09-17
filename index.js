@@ -1,4 +1,5 @@
 const Hapi = require('@hapi/hapi');
+const inert = require('inert');
 
 const routes = require('./routes');
 
@@ -9,13 +10,14 @@ const server = Hapi.server({
 
 const init = async () => {
   await server.start();
+  server.register(inert);
   server.route(routes);
-  
-  console.log('Server running on %s', server.info.uri);
+
+  console.log('Server running on %s', server.info.uri); // eslint-disable-line no-console
 };
 
-process.on('unhandledRejection', err => {
-  console.log(err);
+process.on('unhandledRejection', (err) => {
+  console.log(err); // eslint-disable-line no-console
   process.exit(1);
 });
 
